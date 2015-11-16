@@ -13,7 +13,7 @@ apt-get -y install git curl apache2-utils mysql-client redis-tools
 pip install characteristic scrapy==1.0.3 scrapyd==1.1.0
 
 # Useful libs
-pip install treq scrapyapperyio
+pip install treq scrapyapperyio boto
 
 # Deployment tools
 pip install shub scrapyd-client
