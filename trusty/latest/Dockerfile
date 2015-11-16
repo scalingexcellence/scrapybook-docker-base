@@ -16,24 +16,46 @@ RUN rm -f /etc/service/sshd/down
 # Enable insecure key
 RUN /usr/sbin/enable_insecure_key
 
-
-# -- From https://hub.docker.com/r/ceroic/scrapyd/~/dockerfile/
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 627220E7
-RUN apt-get update && apt-get install -y apt-transport-https ca-certificates procps python-pip
-RUN echo 'deb http://archive.scrapy.org/ubuntu scrapy main' | sudo tee /etc/apt/sources.list.d/scrapy.list
-RUN sudo apt-get update && sudo apt-get install -y scrapy-0.24 scrapyd
-
-# -- Some utils
-RUN apt-get -y install curl apache2-utils
-
-# Install some standard libs
-RUN pip install requests celery[redis] PyPDF2 treq
+RUN apt-get -y update \
+    && apt-get -y install \
+    python-pip \
+    python-lxml \
+    python-crypto \
+    python-cssselect \
+    python-openssl \
+    python-w3lib \
+    python-pyasn1-modules \
+    python-twisted \
+    git \
+    curl \
+    apache2-utils \
+    mysql-client \
+    redis-tools \
+    && pip install \
+    treq \
+    characteristic \
+    scrapyapperyio \
+    shub \
+    scrapyd-client \
+    scrapy==1.0.3 \
+    scrapyd==1.1.0 \
+    && mkdir -p \
+    /var/log/scrapyd \
+    /var/lib/scrapyd \
+    /var/lib/scrapyd/eggs \
+    /var/lib/scrapyd/dbs \
+    /var/lib/scrapyd/items \
+    /etc/scrapyd/conf.d \
+    && ln -s /lib/init/upstart-job /etc/init.d/scrapyd \
+    && adduser --system --home /var/lib/scrapyd --gecos "scrapy" --no-create-home --disabled-password --quiet scrapy \
+    && chown scrapy:nogroup /var/log/scrapyd /var/lib/scrapyd /var/lib/scrapyd/eggs /var/lib/scrapyd/dbs /var/lib/scrapyd/items
 
 # Add our defaults file for increasing file limit
 COPY scrapyd /etc/default/
+COPY scrapyd.conf /etc/init/
+COPY 000-default /etc/scrapyd/conf.d/
 
 EXPOSE 6800
-
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
