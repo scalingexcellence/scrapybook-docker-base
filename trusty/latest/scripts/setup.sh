@@ -7,7 +7,7 @@ apt-get -y install python-pip python-lxml python-crypto \
     python-pyasn1-modules python-twisted
 
 # Ohter dev tools. apache2-utils for the useful ab benchmark
-apt-get -y install git curl apache2-utils mysql-client redis-tools tree vim nano
+apt-get -y install git curl apache2-utils mysql-client redis-tools tree vim nano ftp
 
 # Prereq and core
 pip install characteristic scrapy==1.0.3 scrapyd==1.1.0
