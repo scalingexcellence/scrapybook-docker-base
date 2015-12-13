@@ -52,5 +52,5 @@ echo '' >> /etc/profile
 
 # Clean up APT and other temp directories
 apt-get clean
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /tmp/scripts
 
