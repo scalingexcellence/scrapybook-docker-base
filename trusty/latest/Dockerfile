@@ -20,8 +20,6 @@ COPY scripts /tmp/scripts
 
 RUN /tmp/scripts/setup.sh
 
-EXPOSE 6800
-
 # Commented out because it's done in setup.sh
 # Clean up APT when done.
 #RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
