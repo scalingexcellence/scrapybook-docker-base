@@ -9,7 +9,8 @@ apt-get -y update
 # Install scrapy prerequisites
 apt-get -y install python-pip python-lxml python-crypto \
     python-cssselect python-openssl python-w3lib \
-    python-pyasn1-modules python-twisted python-imaging
+    python-pyasn1-modules python-twisted python-imaging \
+    python-dev libmysqlclient-dev
 
 # Ohter dev tools. apache2-utils for the useful ab benchmark
 apt-get -y install git curl apache2-utils mysql-client redis-tools telnet tree vim nano ftp
@@ -18,7 +19,7 @@ apt-get -y install git curl apache2-utils mysql-client redis-tools telnet tree v
 pip install characteristic scrapy==1.0.3 scrapyd==1.1.0
 
 # Useful libs
-pip install treq boto scrapyapperyio
+pip install treq boto scrapyapperyio MySQL-python txredisapi dj_redis_url dj-database-url
 
 # Deployment tools
 pip install shub scrapyd-client
